@@ -14,17 +14,19 @@
         <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="wouhazrcpglf9hy"></script>
 	</head>
 	<body>
-		<h1>Analysis</h1>
 
 
 		<div id="contacts">
 
 
-
-
 			<div id="mainDiv">	
 				<div class="row">
-					<div class="col-md-3>">
+					<div class="col-md-3">
+						<div class="bs-sidebar sidebar-navigation" ></div>
+							<ul class="nav bs-sidenav">
+								<li>Filter by type</li>
+
+							</ul>
 					</div>
 					<div class="col-md-9">
 
@@ -51,7 +53,23 @@
 				                    <th>Add column</th>
 				                </tr>
 				            </thead>	    	
-				            <tbody>
+				            <tbody class="list">
+	                            <tr>
+	                            	<td class="name">
+                                        <input type="hidden" id="id-field">
+                                        <input type="text" id="name-field" placeholder="Name">
+                                        </td>
+                                        <td class="category">
+                                            <input type="text" id="category-field" placeholder="Category">
+                                        </td>
+                                        <td class="location">
+                                            <input type="text" id="location-field" placeholder="Location">
+                                        </td>
+                                        <td class="add">
+                                            <button id="add-btn">Add</button>
+                                            <button id="edit-btn" style="display: none;">Edit</button>
+                                        </td>
+	                            </tr>				            	
 				            	</tr>
 				                    <td class="id" style="display:none;">4</td>
 				                    <td class="name">Fredrik</td>
@@ -71,65 +89,6 @@
 					    </table>
 					</div>    
 
-			    	<table id="listTable" class="draggable">
-			            <thead>
-			                <tr>
-			                    <th class="sort asc " data-sort="name">Name</th>
-			                    <th class="sort  " data-sort="age">Age</th>
-			                    <th class="sort  " data-sort="city">City</th>
-			                    <th colspan="2">
-			                        <input type="text" class="search" placeholder="Search contact">
-			                    </th>
-			                </tr>
-			            </thead>
-			            <tbody class="list">
-			                <tr><td class="name">
-				                            <input type="hidden" id="id-field">
-				                            <input type="text" id="name-field" placeholder="Name">
-				                        </td>
-				                        <td class="age">
-				                            <input type="text" id="age-field" placeholder="Age">
-				                        </td>
-				                        <td class="city">
-				                            <input type="text" id="city-field" placeholder="City">
-				                        </td>
-				                        <td class="add">
-				                            <button id="add-btn">Add</button>
-				                            <button id="edit-btn" style="display: none;">Edit</button>
-				                        </td>
-			            	</tr>
-			            	<tr>
-			                    <td class="id" style="display:none;">4</td>
-			                    <td class="name">Fredrik</td>
-			                    <td class="age">26</td>
-			                    <td class="city">Goteborg</td>
-			                    <td class="edit"><button class="edit-item-btn">Edit</button></td>
-			                    <td class="remove"><button class="remove-item-btn">Remove</button></td>
-			                </tr><tr>
-			                    <td class="id" style="display:none;">3</td>
-			                    <td class="name">Gustaf</td>
-			                    <td class="age">-23</td>
-			                    <td class="city">Sundsvall</td>
-			                    <td class="edit"><button class="edit-item-btn">Edit</button></td>
-			                    <td class="remove"><button class="remove-item-btn">Remove</button></td>
-			                </tr><tr>
-			                    <td class="id" style="display:none;">2</td>
-			                    <td class="name">Jonas</td>
-			                    <td class="age">-132</td>
-			                    <td class="city">Berlin</td>
-			                    <td class="edit"><button class="edit-item-btn">Edit</button></td>
-			                    <td class="remove"><button class="remove-item-btn">Remove</button></td>
-			                </tr><tr>
-			                    <td class="id" style="display:none;">1</td>
-			                    <td class="name">Jonny</td>
-			                    <td class="age">25</td>
-			                    <td class="city">Stockholm</td>
-			                    <td class="edit"><button class="edit-item-btn">Edit</button></td>
-			                    <td class="remove"><button class="remove-item-btn">Remove</button></td>
-			                </tr>
-
-			            </tbody>	
-		           </table>
 		        </div>
 		</div>
 
@@ -179,16 +138,17 @@
 
     // Define value names
     var options = {
-	    valueNames: [ 'id', 'name', 'age', 'city' ]
+	    valueNames: [ 'id', 'name', 'category','location', 'valuation','mau','watching','growth','size','amountRaised' ]
     };
 
     // Init list
     var contactList = new List('contacts', options);
-
+    console.log(contactList)
     var idField = $('#id-field'),
         nameField = $('#name-field'),
-        ageField = $('#age-field'),
-        cityField = $('#city-field'),
+        categoryField = $('#category-field'),
+        valueField = $('#value-field'),
+        locationField = $('#location-field'),
         addBtn = $('#add-btn'),
         editBtn = $('#edit-btn').hide(),
         removeBtns = $('.remove-item-btn'),

@@ -1,0 +1,10 @@
+.sidebar-navigation{
+	background: #282828;
+	position: fixed;
+	border-right: 1px solid #999;
+	width: 180px;
+}
+
+.mainTable{
+	width:100%;
+}
