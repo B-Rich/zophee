@@ -42,10 +42,28 @@
   <%= javascript_include_tag 'jquery.resize'%>
   <%= javascript_include_tag 'jquery.stack'%>
   <%= javascript_include_tag 'dragtable'%>
-  <%= javascript_include_tag 'tableManipulator'%>
+  <%= javascript_include_tag 'tableExporter'%>
   <%= javascript_include_tag 'list'%>
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.10.2/dropbox.min.js"></script>
   <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="wouhazrcpglf9hy"></script>
+
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+  </script>
 
   <%= javascript_include_tag Dir.chdir(File.join(Rails.root, "app","assets", "javascripts")) { |d| Dir.glob("*.") } %>
 
@@ -253,7 +271,7 @@
             <!-- Message button with number of latest messages count-->
             <li class="dropdown dropdown-big">
               <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <i class="icon-envelope-alt"></i> Inbox <span class="label label-primary">6</span> 
+                <i class="icon-envelope-alt"></i> Alerts <span class="label label-primary">6</span> 
               </a>
 
                 <ul class="dropdown-menu">
@@ -286,7 +304,7 @@
             <!-- Members button with number of latest members count -->
             <li class="dropdown dropdown-big">
               <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                <i class="icon-user"></i> Users <span   class="label label-success">6</span> 
+                <i class="icon-user"></i> Users <span   class="label label-success">12</span> 
               </a>
 
                 <ul class="dropdown-menu">
@@ -337,7 +355,7 @@
               </div>
               <div class="mcol-right">
                 <!-- Number of visitors -->
-                <p><a href="#">7000</a> <em>visits</em></p>
+                <p><a href="#">132</a> <em>watching</em></p>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -350,7 +368,7 @@
               </div>
               <div class="mcol-right">
                 <!-- Number of visitors -->
-                <p><a href="#">3000</a> <em>users</em></p>
+                <p><a href="#">45</a> <em>involved</em></p>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -363,7 +381,7 @@
               </div>
               <div class="mcol-right">
                 <!-- Number of visitors -->
-                <p><a href="#">5000</a><em>orders</em></p>
+                <p><a href="#">21</a><em>favorites</em></p>
               </div>
               <div class="clearfix"></div>
             </div>                        
@@ -389,7 +407,7 @@
         <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
         <ul id="nav">
           <!-- Main menu with font awesome icon -->
-          <li><a href="index.html" class="open"><i class="icon-home"></i> Dashboard</a>
+          <li><a href="index.html" class="open"><i class="icon-home"></i> Filter</a>
             <!-- Sub menu markup 
             <ul>
               <li><a href="#">Submenu #1</a></li>
@@ -397,40 +415,87 @@
               <li><a href="#">Submenu #3</a></li>
             </ul>-->
           </li>
-          <li class="has_sub"><a href="#"><i class="icon-list-alt"></i> Widgets  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#"> Categories  <span class="pull-right"></span></a>
             <ul>
-              <li><a href="widgets1.html">Widgets #1</a></li>
-              <li><a href="widgets2.html">Widgets #2</a></li>
-              <li><a href="widgets3.html">Widgets #3</a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Advertising<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Biotech<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Clean Tech<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Consumer<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">E-Commerce<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Education<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Enterprise<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Advertising<br></a></li>              
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Entertainment<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Mobile<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Networks<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Security<br></a></li>   
+
             </ul>
+
           </li>  
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> Pages #1  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#"> Status  <span class="pull-right"></span></a>
             <ul>
-              <li><a href="post.html">Post</a></li>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="register.html">Register</a></li>
-              <li><a href="support.html">Support</a></li>
-              <li><a href="invoice.html">Invoice</a></li>
-              <li><a href="profile.html">Profile</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Dead<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Sold<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">Public<br></a></li>
+            </ul>
+
+          </li>  
+          <li class="has_sub"><a href="#"> Funding Series  <span class="pull-right"></span></a>
+            <ul>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">A<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">B<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">C<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">D<br></a></li>
+              <li><a href=""><input type="checkbox" name="category" value="advertising">E<br></a></li>
+            </ul>
+
+          </li> 
+
+          <li class="has_sub"><a href="#">Amount Raised  <span class="pull-right"></span></a>
+            <ul>
+            </a>
+                <p>
+                <label for="amount">Price range:</label>
+                <input type="text" id="raised" style="border: 0; color: #f6931f; font-weight: bold;" />
+              </p>
+               
+              <div id="slider-range"></div>
+             </a>
             </ul>
           </li> 
-          <li class="has_sub"><a href="#"><i class="icon-file-alt"></i> Pages #2  <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
+          <li class="has_sub"><a href="#">Valuation <span class="pull-right"></span></a>
             <ul>
-              <li><a href="media.html">Media</a></li>
-              <li><a href="statement.html">Statement</a></li>
-              <li><a href="error.html">Error</a></li>
-              <li><a href="error-log.html">Error Log</a></li>
-              <li><a href="calendar.html">Calendar</a></li>
-              <li><a href="grid.html">Grid</a></li>
+            </a>
+                <p>
+                <label for="amount">Price range:</label>
+                <input type="text" id="valuation" style="border: 0; color: #f6931f; font-weight: bold;" />
+              </p>
+               
+              <div id="slider-range"></div>
+             </a>
             </ul>
-          </li>                             
-          <li><a href="charts.html"><i class="icon-bar-chart"></i> Charts</a></li> 
-          <li><a href="tables.html"><i class="icon-table"></i> Tables</a></li>
-          <li><a href="forms.html"><i class="icon-tasks"></i> Forms</a></li>
-          <li><a href="ui.html"><i class="icon-magic"></i> User Interface</a></li>
-          <li><a href="calendar.html"><i class="icon-calendar"></i> Calendar</a></li>
-        </ul>
+          </li> 
+          <li class="has_sub"><a href="#">Date founded <span class="pull-right"></span></a>
+            <ul>
+            </a>
+                <p>
+                <label for="amount">Price range:</label>
+                <input type="text" id="dateFounded" style="border: 0; color: #f6931f; font-weight: bold;" />
+              </p>
+               
+              <div id="slider-range"></div>
+             </a>
+            </ul>
+          </li>                     
+
+          <li class="has_sub"><a href="#">Custom Filter <span class="pull-right"></span></a>
+            <ul>
+            </a>
+              Add new Filter
+             </a>
+            </ul>
+          </li>    
     </div>
 
     <!-- Sidebar ends -->
@@ -468,10 +533,14 @@
 <div class="widget">
 
                 <div class="widget-head">
-                  <div class="pull-left">Tables</div>
+                  <div class="pull-left">Search:  <input type="text" class="search" placeholder="Search"></div>
+
                   <div class="widget-icons pull-right">
-                    <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
-                    <a href="#" class="wclose"><i class="icon-remove"></i></a>
+                  
+                  <%= image_tag("saveToDropbox.png", onclick:"tableToExcel('mainTable', 'Zophee Table.xls', true)",class:"pull-right")%>
+                   <input type="button" onclick="tableToExcel('mainTable', 'Zophee Table.xls', false)" value="Add Column" class="pull-right">
+                   <input type="button" onclick="tableToExcel('mainTable', 'Zophee Table.xls', false)" value="Export to Excel" class="pull-right">
+
                   </div>  
                   <div class="clearfix"></div>
                 </div>
@@ -514,20 +583,65 @@
                                     </td>
                           </tr>   -->                   
                           <tr>
-                                <td class="id" style="display:none;">4</td>
-                                <td class="name">Fredrik</td>
-                                <td class="category">Enterprise</td>
-                                <td class="location">Silicon Valley</td>
-                                <td class="size">100</td>
-                                <td class="amountRaised">1,000,000</td>
-                                <td class="valuation">10,000,000</td>
-                                <td class="growth">10000</td>
-                                <td class="mau">100</td>
-                                <td class="watching">Yes</td>
-                                <td class="tags">enterprise,softwre</td>
-                                <td class="edit"><button class="edit-item-btn">Edit</button></td>
-                                <td class="remove"><button class="remove-item-btn">Remove</button></td>
-                             </tr>              
+                              <td class="id" style="display:none;">4</td>
+                              <td class="name">Fredrik</td>
+                              <td class="category">Enterprise</td>
+                              <td class="location">Silicon Valley</td>
+                              <td class="size">100</td>
+                              <td class="amountRaised">1,000,000</td>
+                              <td class="valuation">10,000,000</td>
+                              <td class="growth">10000</td>
+                              <td class="mau">100</td>
+                              <td class="watching">Yes</td>
+                              <td class="tags">enterprise,softwre</td>
+                              <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                              <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                          </tr>    
+                          <tr>
+                              <td class="id" style="display:none;">4</td>
+                              <td class="name">Fredrik</td>
+                              <td class="category">Enterprise</td>
+                              <td class="location">Silicon Valley</td>
+                              <td class="size">100</td>
+                              <td class="amountRaised">1,000,000</td>
+                              <td class="valuation">10,000,000</td>
+                              <td class="growth">10000</td>
+                              <td class="mau">100</td>
+                              <td class="watching">Yes</td>
+                              <td class="tags">enterprise,softwre</td>
+                              <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                              <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                          </tr>     
+                          <tr>
+                              <td class="id" style="display:none;">4</td>
+                              <td class="name">Fredrik</td>
+                              <td class="category">Enterprise</td>
+                              <td class="location">Silicon Valley</td>
+                              <td class="size">100</td>
+                              <td class="amountRaised">1,000,000</td>
+                              <td class="valuation">10,000,000</td>
+                              <td class="growth">10000</td>
+                              <td class="mau">100</td>
+                              <td class="watching">Yes</td>
+                              <td class="tags">enterprise,softwre</td>
+                              <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                              <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                          </tr>    
+                          <tr>
+                              <td class="id" style="display:none;">4</td>
+                              <td class="name">Fredrik</td>
+                              <td class="category">Enterprise</td>
+                              <td class="location">Silicon Valley</td>
+                              <td class="size">100</td>
+                              <td class="amountRaised">1,000,000</td>
+                              <td class="valuation">10,000,000</td>
+                              <td class="growth">10000</td>
+                              <td class="mau">100</td>
+                              <td class="watching">Yes</td>
+                              <td class="tags">enterprise,softwre</td>
+                              <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                              <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                          </tr>                                                                
                         </tbody>
                   </table>
 
@@ -1009,7 +1123,6 @@
             </div>
           </div>
 
-
           <div class="row">
             <div class="col-md-6">
               <div class="widget wblack">
@@ -1033,7 +1146,11 @@
                 </div>
               </div> 
             </div>
-            <div class="col-md-6">
+        </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
               <div class="widget">
                 <div class="widget-head">
                   <div class="pull-left">Quick Post</div>
@@ -1063,19 +1180,7 @@
                                               <textarea class="form-control" id="content"></textarea>
                                             </div>
                                           </div>                           
-                                          <!-- Cateogry -->
-                                          <div class="form-group">
-                                            <label class="control-label col-lg-3">Category</label>
-                                            <div class="col-lg-9">                               
-                                                <select class="form-control">
-                                                  <option value="">- Choose Cateogry -</option>
-                                                  <option value="1">General</option>
-                                                  <option value="2">News</option>
-                                                  <option value="3">Media</option>
-                                                  <option value="4">Funny</option>
-                                                </select>  
-                                            </div>
-                                          </div>              
+        
                                           <!-- Tags -->
                                           <div class="form-group">
                                             <label class="control-label col-lg-3" for="tags">Tags</label>
@@ -1083,6 +1188,15 @@
                                               <input type="text" class="form-control" id="tags">
                                             </div>
                                           </div>
+                                          <!-- Attachment -->
+                                          <div class="form-group">
+                                            <label class="control-label col-lg-3" for="tags">Attachment</label>
+                                            <div class="col-lg-9">
+                                              <input type="dropbox-chooser" name="selected-file" id="db-chooser" style="visibility: hidden;"/>
+                                              <div id="attachmentName"></div><br>
+                                              <div id="attachmentLink"></div>
+                                            </div>
+                                          </div>                                          
                                           
                                           <!-- Buttons -->
                                           <div class="form-group">
@@ -1136,6 +1250,19 @@
 
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
+
+<script type="text/javascript">
+      $(document).ready(function() {
+        console.log("Got here")
+        // add an event listener to a Chooser button
+        document.getElementById("db-chooser").addEventListener("DbxChooserSuccess",
+            function(e) {
+
+              $("#attachmentName").html('<input  style="display:none" type="text" name="attachmentName" value="'+e.files[0].name+'"><p>'+e.files[0].name+'</p>')
+              $("#attachmentLink").html('<input  style="display:none" type="text" name="attachmentLink" value="'+e.files[0].link+'"><p>'+e.files[0].link+'</p>')
+            }, false);
+      });
+</script>
 
 <script type="text/javascript">
     // Define value names
