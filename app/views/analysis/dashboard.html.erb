@@ -41,6 +41,11 @@
   <%= javascript_include_tag 'jquery.flot.pie'%>
   <%= javascript_include_tag 'jquery.resize'%>
   <%= javascript_include_tag 'jquery.stack'%>
+  <%= javascript_include_tag 'dragtable'%>
+  <%= javascript_include_tag 'tableManipulator'%>
+  <%= javascript_include_tag 'list'%>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/dropbox.js/0.10.2/dropbox.min.js"></script>
+  <script type="text/javascript" src="https://www.dropbox.com/static/api/1/dropins.js" id="dropboxjs" data-app-key="wouhazrcpglf9hy"></script>
 
   <%= javascript_include_tag Dir.chdir(File.join(Rails.root, "app","assets", "javascripts")) { |d| Dir.glob("*.") } %>
 
@@ -374,7 +379,7 @@
 
 <!-- Main content starts -->
 
-<div class="content">
+<div id="content" class="content">
 
   	<!-- Sidebar -->
     <div class="sidebar">
@@ -473,54 +478,60 @@
 
                   <div class="widget-content" style="display: block;">
 
-                    <table class="table table-striped table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Name</th>
-                          <th>Location</th>
-                          <th>Age</th>
-                          <th>Education</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Ashok</td>
-                          <td>India</td>
-                          <td>23</td>
-                          <td>B.Tech</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Kumarasamy</td>
-                          <td>USA</td>
-                          <td>22</td>
-                          <td>BE</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Babura</td>
-                          <td>UK</td>
-                          <td>43</td>
-                          <td>PhD</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Ravi Kumar</td>
-                          <td>China</td>
-                          <td>73</td>
-                          <td>PUC</td>
-                        </tr>
-                        <tr>
-                          <td>5</td>
-                          <td>Santhosh</td>
-                          <td>Japan</td>
-                          <td>43</td>
-                          <td>M.Tech</td>
-                        </tr>                                                                        
-                      </tbody>
-                    </table>
+                  <table id="mainTable" class="table draggable table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <td class="sort" data-sort="id" style="display:none;">ID</td>
+                                <th class="sort asc " data-sort="name">Name</th>
+                                <th class="sort  " data-sort="category">Category</th>
+                                <th class="sort  " data-sort="location">Location</th>
+                                <th class="sort  " data-sort="size">Size</th>
+                                <th class="sort  " data-sort="amountRaised">Amount Raised</th>
+                                <th class="sort  " data-sort="valuation">Valuation</th>
+                                <th class="sort  " data-sort="growth">Growth</th>
+                                <th class="sort  " data-sort="mau">MAU</th>
+                                <th class="sort  " data-sort="watching">Watching</th>
+                                <th class="sort  " data-sort="tags">Tags</th>
+                                <th>Add column</th>
+                                <th>Add column</th>
+                            </tr>
+                        </thead>        
+                        <tbody class="list">
+<!--                           <tr>
+                            <td class="name">
+                                    <input type="hidden" id="id-field">
+                                    <input type="text" id="name-field" placeholder="Name">
+                                    </td>
+                                    <td class="category">
+                                        <input type="text" id="category-field" placeholder="Category">
+                                    </td>
+                                    <td class="location">
+                                        <input type="text" id="location-field" placeholder="Location">
+                                    </td>
+                                    <td class="add">
+                                        <button id="add-btn">Add</button>
+                                        <button id="edit-btn" style="display: none;">Edit</button>
+                                    </td>
+                          </tr>   -->                   
+                          <tr>
+                                <td class="id" style="display:none;">4</td>
+                                <td class="name">Fredrik</td>
+                                <td class="category">Enterprise</td>
+                                <td class="location">Silicon Valley</td>
+                                <td class="size">100</td>
+                                <td class="amountRaised">1,000,000</td>
+                                <td class="valuation">10,000,000</td>
+                                <td class="growth">10000</td>
+                                <td class="mau">100</td>
+                                <td class="watching">Yes</td>
+                                <td class="tags">enterprise,softwre</td>
+                                <td class="edit"><button class="edit-item-btn">Edit</button></td>
+                                <td class="remove"><button class="remove-item-btn">Remove</button></td>
+                             </tr>              
+                        </tbody>
+                  </table>
+
+
 
                     <div class="widget-foot">
 
@@ -569,7 +580,7 @@
 	    <div class="matter">
         <div class="container">
 
-          <!-- Today status. jQuery Sparkline plugin used. -->
+          <!-- Metrics jQuery Sparkline plugin used. -->
 
           <div class="row">
             <div class="col-md-12"> 
@@ -647,7 +658,7 @@
               <div class="widget">
 
                 <div class="widget-head">
-                  <div class="pull-left">Today Status</div>
+                  <div class="pull-left">Metrics</div>
                   <div class="widget-icons pull-right">
                     <a href="#" class="wminimize"><i class="icon-chevron-up"></i></a> 
                     <a href="#" class="wclose"><i class="icon-remove"></i></a>
@@ -1126,38 +1137,81 @@
 <!-- Scroll to top -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span> 
 
-<!-- JS -->
-<script src="js/jquery.js"></script> <!-- jQuery -->
-<script src="js/bootstrap.js"></script> <!-- Bootstrap -->
-<script src="js/jquery-ui-1.9.2.custom.min.js"></script> <!-- jQuery UI -->
-<script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
-<script src="js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
-<script src="js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+<script type="text/javascript">
+    // Define value names
+    var options = {
+      valueNames: [ 'id', 'name', 'category','location', 'valuation','mau','watching','growth','size','amountRaised' ]
+    };
 
-<!-- jQuery Flot -->
-<script src="js/excanvas.min.js"></script>
-<script src="js/jquery.flot.js"></script>
-<script src="js/jquery.flot.resize.js"></script>
-<script src="js/jquery.flot.pie.js"></script>
-<script src="js/jquery.flot.stack.js"></script>
+    // Init list
+    var contactList = new List('content', options);
+    console.log(contactList)
+    var idField = $('#id-field'),
+        nameField = $('#name-field'),
+        categoryField = $('#category-field'),
+        valueField = $('#value-field'),
+        locationField = $('#location-field'),
+        addBtn = $('#add-btn'),
+        editBtn = $('#edit-btn').hide(),
+        removeBtns = $('.remove-item-btn'),
+        editBtns = $('.edit-item-btn');
 
-<!-- jQuery Notification - Noty -->
-<script src="js/jquery.noty.js"></script> <!-- jQuery Notify -->
-<script src="js/themes/default.js"></script> <!-- jQuery Notify -->
-<script src="js/layouts/bottom.js"></script> <!-- jQuery Notify -->
-<script src="js/layouts/topRight.js"></script> <!-- jQuery Notify -->
-<script src="js/layouts/top.js"></script> <!-- jQuery Notify -->
-<!-- jQuery Notification ends -->
+    // Sets callbacks to the buttons in the list
+    refreshCallbacks();
 
-<script src="js/sparklines.js"></script> <!-- Sparklines -->
-<script src="js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
-<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
-<script src="js/jquery.uniform.min.js"></script> <!-- jQuery Uniform -->
-<script src="js/bootstrap-switch.min.js"></script> <!-- Bootstrap Toggle -->
-<script src="js/filter.js"></script> <!-- Filter for support page -->
-<script src="js/custom.js"></script> <!-- Custom codes -->
-<script src="js/charts.js"></script> <!-- Charts & Graphs -->
+    addBtn.click(function() {
+       contactList.add({
+           id: Math.floor(Math.random()*110000),
+           name: nameField.val(),
+           category : categoryField.val(),
+           location: locationField.val()
+       });
+       clearFields();
+       refreshCallbacks();
+    });
 
+    editBtn.click(function() {
+       var item = contactList.get('id', idField.val());
+       item.values({
+           id:idField.val(),
+           name: nameField.val(),
+           category: categoryField.val(),
+           location: locationField.val()
+       });
+       clearFields();
+       editBtn.hide();
+       addBtn.show();
+    });
+
+    function refreshCallbacks() {
+        // Needed to add new buttons to jQuery-extended object
+        removeBtns = $(removeBtns.selector);
+        editBtns = $(editBtns.selector);
+
+        removeBtns.click(function() {
+           var itemId = $(this).closest('tr').find('.id').text();
+           contactList.remove('id', itemId);
+        });
+
+        editBtns.click(function() {
+           var itemId = $(this).closest('tr').find('.id').text();
+           var itemValues = contactList.get('id', itemId).values();
+           idField.val(itemValues.id);
+           nameField.val(itemValues.name);
+           categoryField.val(itemValues.category);
+           locationField.val(itemValues.location);
+
+           editBtn.show();
+           addBtn.hide();
+        });
+    }
+
+    function clearFields() {
+       nameField.val('');
+       ageField.val('');
+       cityField.val('');
+    }
+</script>
 <!-- Script for this page -->
 <script type="text/javascript">
 $(function () {
